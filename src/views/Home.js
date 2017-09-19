@@ -2,6 +2,7 @@ import React from 'react';
 import Reflux from 'reflux';
 import AppStore from '../stores/AppStore';
 import Actions from '../actions/Actions';
+import Card from '../components/Card';
 
 class Home extends Reflux.Component {
 	constructor() {
@@ -18,6 +19,16 @@ class Home extends Reflux.Component {
     }
 
     render() {
+        let people = this.state.data.map((currentValue, index, array) => {
+            return(
+                <Card
+                    key={ index }
+                    id={ currentValue.id }
+                    first_name={ currentValue.first_name }
+                    last_name={ currentValue.last_name }
+                    avatar={ currentValue.avatar } />
+            );
+        });
         return (
             <div>
                 <div className="jumbotron">
@@ -30,6 +41,12 @@ class Home extends Reflux.Component {
                         onClick={ this.showUsers }
                         className="btn btn-primary">Show Users</button>
                 </div>
+
+                <div className="row">
+                    { people }
+                </div>
+
+
             </div>
         );
     }

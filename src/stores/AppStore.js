@@ -1,5 +1,6 @@
 import Reflux from 'reflux';
 import Actions from '../actions/Actions';
+import * as HTTP from '../services/http';
 
 class AppStore extends Reflux.Store {
     constructor() {
@@ -13,7 +14,11 @@ class AppStore extends Reflux.Store {
     }
 
     getUsers() {
-        console.log('GET_USERS');
+        const self = this;
+        HTTP.get('https://reqres.in/api/users?page=2').
+            then((response) => {
+                self.setState({ data: response.data });
+            });
     }
 }
 
